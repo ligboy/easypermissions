@@ -24,6 +24,7 @@ import android.text.TextUtils;
  */
 public class AppSettingsDialog implements Parcelable {
     public static final int DEFAULT_SETTINGS_REQ_CODE = 16061;
+    public static final String EXTRA_FROM_SYSTEM = "easy_from_system";
 
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static final Parcelable.Creator<AppSettingsDialog> CREATOR = new Parcelable.Creator<AppSettingsDialog>() {

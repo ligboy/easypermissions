@@ -47,7 +47,7 @@ public class EasyPermissions {
 
         void onPermissionsGranted(int requestCode, List<String> perms);
 
-        void onPermissionsDenied(int requestCode, List<String> perms);
+        void onPermissionsDenied(int requestCode, List<String> perms, boolean fromSystem);
 
     }
 
@@ -231,7 +231,7 @@ public class EasyPermissions {
             // Report denied permissions, if any.
             if (!denied.isEmpty()) {
                 if (object instanceof PermissionCallbacks) {
-                    ((PermissionCallbacks) object).onPermissionsDenied(requestCode, denied);
+                    ((PermissionCallbacks) object).onPermissionsDenied(requestCode, denied, true);
                 }
             }
 

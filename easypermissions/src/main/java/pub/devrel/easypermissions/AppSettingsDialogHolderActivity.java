@@ -12,6 +12,8 @@ import android.support.annotation.RestrictTo;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
+import static pub.devrel.easypermissions.AppSettingsDialog.EXTRA_FROM_SYSTEM;
+
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class AppSettingsDialogHolderActivity extends AppCompatActivity implements DialogInterface.OnClickListener {
     private static final int APP_SETTINGS_RC = 7534;
@@ -45,7 +47,9 @@ public class AppSettingsDialogHolderActivity extends AppCompatActivity implement
                             .setData(Uri.fromParts("package", getPackageName(), null)),
                     APP_SETTINGS_RC);
         } else if (which == Dialog.BUTTON_NEGATIVE) {
-            setResult(Activity.RESULT_CANCELED);
+            Intent data = new Intent();
+            data.putExtra(EXTRA_FROM_SYSTEM, false);
+            setResult(Activity.RESULT_CANCELED, data);
             finish();
         } else {
             throw new IllegalStateException("Unknown button type: " + which);
@@ -55,6 +59,10 @@ public class AppSettingsDialogHolderActivity extends AppCompatActivity implement
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            data = new Intent();
+        }
+        data.putExtra(EXTRA_FROM_SYSTEM, true);
         setResult(resultCode, data);
         finish();
     }
